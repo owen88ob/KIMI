@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kimi</title>
+    <style>
+        :root {
+            --bg-body: #0d0d0d;
+            --bg-sidebar: #0d0d0d;
+            --bg-card: #141414;
+            --bg-input: #1a1a1a;
+            --bg-hover: #1f1f1f;
+            --bg-avatar-user: #3a3a3a;
+            --bg-avatar-kimi: #1f1f1f;
+            --bg-empty-icon: #2a2a2a;
+            --bg-tool-hover: #2a2a2a;
+            --bg-send-inactive: #3a3a3a;
+            --bg-alert: #2a1f1f;
+            --bg-subscribe-icon: #2a1f15;
+            --bg-subscribe-card: #141414;
+            --bg-badge: #2a1f15;
+            --bg-settings-overlay: rgba(0,0,0,0.7);
+            --bg-dropdown: #1a1a1a;
+            --bg-toast: #1a1a1a;
+            --bg-file-tag: #1a1a1a;
+            --bg-sidebar-btn: #1a1a1a;
+            --bg-sidebar-btn-hover: #252525;
+            --bg-promo: #141414;
+            --bg-promo-border: #2a2a2a;
+            --bg-upgrade-btn: #1a1a1a;
+            --bg-upgrade-btn-hover: #252525;
+            --bg-model-select: #1a1a1a;
+            
+            --border-main: #1f1f1f;
+            --border-secondary: #2a2a2a;
+            --border-alert: #4a3a3a;
+            --border-subscribe: #2a2a2a;
+            --border-subscribe-icon: #4a3a2a;
+            --border-badge: #3a2a1a;
+            --border-dropdown: #2a2a2a;
+            --border-file-tag: #2a2a2a;
+            --border-input: #2a2a2a;
+            --border-input-focus: #444;
+            --border-promo: #2a2a2a;
+            
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #888888;
+            --text-quaternary: #666666;
+            --text-dim: #555555;
+            --text-body: #c8c8c8;
+            --text-alert: #d0a0a0;
+            --text-alert-strong: #e8b0b0;
+            --text-subscribe: #d4a574;
+            --text-subscribe-hover: #e8c090;
+            --text-subscribe-back: #888888;
+            --text-toast: #c8c8c8;
+            --text-logo: #4a4a4a;
+            --text-logo-hover: #666666;
+            --text-beta: #4a9eff;
+            --text-upgrade: #a0a0a0;
+            --text-upgrade-hover: #e8e8e8;
+            
+            --accent-purple: #9b59b6;
+            --accent-purple-hover: #8e44ad;
+            --accent-gold: #d4a574;
+            --accent-gold-hover: #e8c090;
+            --accent-gold-text: #1a1a1a;
+            --accent-active: #d4a574;
+            --accent-blue: #4a9eff;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f5f5f5;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f0f0f0;
+            --bg-hover: #eaeaea;
+            --bg-avatar-user: #e0e0e0;
+            --bg-avatar-kimi: #f0f0f0;
+            --bg-empty-icon: #f0f0f0;
+            --bg-tool-hover: #e5e5e5;
+            --bg-send-inactive: #d0d0d0;
+            --bg-alert: #fef2f2;
+            --bg-subscribe-icon: #fff7ed;
+            --bg-subscribe-card: #ffffff;
+            --bg-badge: #fff7ed;
+            --bg-settings-overlay: rgba(0,0,0,0.4);
+            --bg-dropdown: #ffffff;
+            --bg-toast: #ffffff;
+            --bg-file-tag: #f0f0f0;
+            --bg-sidebar-btn: #f0f0f0;
+            --bg-sidebar-btn-hover: #e5e5e5;
+            --bg-promo: #ffffff;
+            --bg-promo-border: #e5e5e5;
+            --bg-upgrade-btn: #f0f0f0;
+            --bg-upgrade-btn-hover: #e5e5e5;
+            --bg-model-select: #f0f0f0;
+            
+            --border-main: #e5e5e5;
+            --border-secondary: #d1d1d1;
+            --border-alert: #fecaca;
+            --border-subscribe: #e5e5e5;
+            --border-subscribe-icon: #fed7aa;
+            --border-badge: #fed7aa;
+            --border-dropdown: #e5e5e5;
+            --border-file-tag: #e5e5e5;
+            --border-input: #d1d1d1;
+            --border-input-focus: #888;
+            --border-promo: #e5e5e5;
+            
+            --text-primary: #111111;
+            --text-secondary: #444444;
+            --text-tertiary: #666666;
+            --text-quaternary: #888888;
+            --text-dim: #aaaaaa;
+            --text-body: #333333;
+            --text-alert: #991b1b;
+            --text-alert-strong: #7f1d1d;
+            --text-subscribe: #b45309;
+            --text-subscribe-hover: #92400e;
+            --text-subscribe-back: #888888;
+            --text-toast: #333333;
+            --text-logo: #cccccc;
+            --text-logo-hover: #999999;
+            --text-beta: #2563eb;
+            --text-upgrade: #666666;
+            --text-upgrade-hover: #111111;
+            
+            --accent-purple: #7c3aed;
+            --accent-purple-hover: #6d28d9;
+            --accent-gold: #d97706;
+            --accent-gold-hover: #b45309;
+            --accent-gold-text: #ffffff;
+            --accent-active: #d97706;
+            --accent-blue: #2563eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container { display: flex; height: 100vh; }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-main);
+            display: flex;
+            flex-direction: column;
+            padding: 12px 10px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .sidebar-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            margin-bottom: 16px;
+        }
+        .sidebar-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-input);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            cursor: pointer;
+            border: 1px solid var(--border-secondary);
+        }
+        .sidebar-collapse {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sidebar-collapse:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        .new-session-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: var(--bg-sidebar-btn);
+            border: 1px solid var(--border-secondary);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+        .new-session-btn:hover { background: var(--bg-sidebar-btn-hover); }
+        .new-session-btn .shortcut {
+            font-size: 11px;
+            color: var(--text-quaternary);
+            background: var(--bg-body);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-secondary);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        .sidebar-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .sidebar-item.active { background: var(--bg-hover); color: var(--text-primary); }
+        .sidebar-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+        .sidebar-item .beta-tag {
+            font-size: 10px;
+            color: var(--text-beta);
+            background: rgba(74,158,255,0.1);
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+        .sidebar-item .plus-icon {
+            margin-left: auto;
+            width: 14px;
+            height: 14px;
+            opacity: 0.5;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border-main);
+            margin: 8px 6px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 8px;
+        }
+        .user-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .user-bar:hover { background: var(--bg-hover); }
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-avatar-user);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--text-primary);
+        }
+        .user-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            flex: 1;
+        }
+        .user-upgrade {
+            font-size: 11px;
+            color: var(--text-upgrade);
+            background: var(--bg-upgrade-btn);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-secondary);
+        }
+        .user-arrow {
+            width: 14px;
+            height: 14px;
+            color: var(--text-quaternary);
+        }
+
+        /* 主内容区 */
+        .main { flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+
+        /* 顶部栏 */
+        .header {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .upgrade-btn-top {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg-upgrade-btn);
+            border: 1px solid var(--border-secondary);
+            border-radius: 20px;
+            color: var(--text-upgrade);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upgrade-btn-top:hover {
+            background: var(--bg-upgrade-btn-hover);
+            color: var(--text-upgrade-hover);
+            border-color: var(--border-input-focus);
+        }
+        .upgrade-btn-top svg { width: 14px; height: 14px; }
+
+        .header-actions { position: absolute; right: 20px; display: flex; gap: 8px; }
+        .header-btn {
+            width: 32px; height: 32px; border-radius: 8px; border: none;
+            background: transparent; color: var(--text-tertiary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .header-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        /* 首页大 Logo */
+        .home-view {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px 40px;
+            animation: fadeIn 0.5s ease;
+        }
+        .home-view.hidden { display: none; }
+        .home-logo {
+            font-size: 72px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            color: var(--text-logo);
+            margin-bottom: 40px;
+            user-select: none;
+            transition: color 0.3s;
+        }
+        .home-logo:hover { color: var(--text-logo-hover); }
+
+        /* 输入框区域 */
+        .input-section {
+            width: 100%;
+            max-width: 720px;
+        }
+        .input-box {
+            background: var(--bg-input);
+            border: 1px solid var(--border-input);
+            border-radius: 16px;
+            padding: 14px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input-box:focus-within {
+            border-color: var(--border-input-focus);
+            box-shadow: 0 0 0 3px rgba(155,89,182,0.1);
+        }
+        .input-field-home {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.5;
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+        .input-field-home::placeholder { color: var(--text-quaternary); }
+        .input-bottom-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .input-left-tools {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tool-btn-round {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-quaternary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 18px;
+            line-height: 1;
+        }
+        .tool-btn-round:hover { background: var(--bg-tool-hover); color: var(--text-primary); }
+        .agent-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-quaternary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .agent-btn:hover { background: var(--bg-tool-hover); color: var(--text-primary); }
+        .agent-btn svg { width: 14px; height: 14px; }
+
+        .input-right-tools {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .model-select {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: none;
+            background: var(--bg-model-select);
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .model-select:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .model-select svg { width: 12px; height: 12px; }
+
+        .send-btn-home {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-send-inactive);
+            color: var(--text-quaternary);
+            cursor: not-allowed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .send-btn-home.active {
+            background: var(--accent-purple);
+            color: #fff;
+            cursor: pointer;
+        }
+        .send-btn-home.active:hover { background: var(--accent-purple-hover); }
+
+        /* 底部推广卡片 */
+        .promo-card {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-promo);
+            border: 1px solid var(--border-promo);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .promo-card:hover {
+            border-color: var(--border-input-focus);
+            transform: translateX(-50%) translateY(-2px);
+        }
+        .promo-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-empty-icon);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--text-dim);
+            overflow: hidden;
+        }
+        .promo-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .promo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .promo-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .promo-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .promo-arrow {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--bg-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            margin-left: 4px;
+        }
+        .promo-arrow svg { width: 14px; height: 14px; }
+
+        /* 聊天视图 */
+        .chat-view {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-view.active { display: flex; }
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 0;
+            scroll-behavior: smooth;
+        }
+        .messages-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .message {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .avatar {
+            width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 600;
+        }
+        .avatar.user { background: var(--bg-avatar-user); color: var(--text-primary); }
+        .avatar.kimi { background: var(--bg-avatar-kimi); position: relative; }
+        .avatar.kimi::before {
+            content: ""; width: 18px; height: 18px;
+            background: var(--accent-purple); border-radius: 50%; display: block;
+        }
+        .message-content {
+            flex: 1; padding-top: 4px; line-height: 1.7;
+            font-size: 15px; color: var(--text-body); word-wrap: break-word;
+        }
+        .message.user .message-content { color: var(--text-primary); }
+
+        .typing-indicator { display: flex; gap: 4px; padding: 8px 0; }
+        .typing-indicator span {
+            width: 8px; height: 8px; background: var(--text-tertiary);
+            border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        .alert-box {
+            background: var(--bg-alert); border: 1px solid var(--border-alert);
+            border-radius: 10px; padding: 14px 16px;
+            font-size: 14px; color: var(--text-alert); line-height: 1.6;
+        }
+        .alert-box strong { color: var(--text-alert-strong); }
+
+        .input-area-chat {
+            padding: 12px 20px 20px;
+            flex-shrink: 0;
+        }
+        .input-wrapper-chat {
+            max-width: 720px; margin: 0 auto;
+            background: var(--bg-input); border: 1px solid var(--border-input);
+            border-radius: 16px; padding: 12px 14px;
+            display: flex; flex-direction: column; gap: 6px;
+            transition: border-color 0.2s;
+        }
+        .input-wrapper-chat:focus-within { border-color: var(--border-input-focus); }
+        .input-field-chat {
+            background: transparent; border: none; outline: none;
+            color: var(--text-primary); font-size: 15px; line-height: 1.5;
+            resize: none; max-height: 160px; min-height: 22px;
+            font-family: inherit;
+        }
+        .input-field-chat::placeholder { color: var(--text-quaternary); }
+
+        .file-tag-container-chat {
+            display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        .file-tag-container-chat.active { display: flex; }
+        .file-tag-chat {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background: var(--bg-file-tag);
+            border: 1px solid var(--border-file-tag);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            max-width: 180px;
+        }
+        .file-tag-chat svg { width: 10px; height: 10px; flex-shrink: 0; }
+        .file-tag-name-chat { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .file-tag-remove-chat {
+            width: 14px; height: 14px; border-radius: 3px;
+            border: none; background: none; color: var(--text-quaternary);
+            cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0;
+        }
+        .file-tag-remove-chat:hover { color: var(--text-primary); }
+
+        .input-toolbar-chat { display: flex; align-items: center; justify-content: space-between; }
+        .input-tools-chat { display: flex; gap: 6px; position: relative; }
+        .tool-btn-chat {
+            width: 26px; height: 26px; border-radius: 6px; border: none;
+            background: transparent; color: var(--text-quaternary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .tool-btn-chat:hover { background: var(--bg-tool-hover); color: var(--text-tertiary); }
+        .tool-btn-chat.active-search {
+            color: var(--accent-active);
+            background: var(--bg-subscribe-icon);
+        }
+        .send-btn-chat {
+            width: 28px; height: 28px; border-radius: 50%; border: none;
+            background: var(--bg-send-inactive); color: var(--text-quaternary); cursor: not-allowed;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .send-btn-chat.active { background: var(--accent-purple); color: #fff; cursor: pointer; }
+        .send-btn-chat.active:hover { background: var(--accent-purple-hover); }
+
+        .search-dropdown-chat {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 0;
+            background: var(--bg-dropdown);
+            border: 1px solid var(--border-dropdown);
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            min-width: 120px;
+            z-index: 50;
+            animation: fadeIn 0.15s ease;
+        }
+        [data-theme="light"] .search-dropdown-chat { box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .search-dropdown-chat.active { display: block; }
+        .search-option-chat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        .search-option-chat:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .search-option-chat svg { width: 12px; height: 12px; flex-shrink: 0; opacity: 0.6; }
+
+        .footer-hint-chat { text-align: center; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+
+        /* 订阅/锁定页面 */
+        .lock-page {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        .lock-page.active { display: flex; }
+        .lock-card {
+            background: var(--bg-subscribe-card);
+            border: 1px solid var(--border-subscribe);
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+        }
+        .lock-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-subscribe-icon);
+            border: 1px solid var(--border-subscribe-icon);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--text-subscribe);
+        }
+        .lock-icon svg { width: 24px; height: 24px; }
+        .lock-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .lock-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .lock-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 28px;
+            background: var(--accent-gold);
+            color: var(--accent-gold-text);
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 14px;
+        }
+        .lock-btn:hover { background: var(--accent-gold-hover); }
+        .lock-back {
+            font-size: 13px;
+            color: var(--text-subscribe-back);
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.2s;
+        }
+        .lock-back:hover { color: var(--text-primary); }
+
+        /* 设置面板 */
+        .settings-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-settings-overlay);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .settings-overlay.active { display: flex; }
+        .settings-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-main);
+            border-radius: 16px;
+            width: 400px;
+            max-width: 90vw;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .settings-header h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .settings-header button {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 22px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+        .settings-header button:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .settings-item {
+            margin-bottom: 20px;
+        }
+        .settings-item:last-child { margin-bottom: 0; }
+        .settings-item label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        .toggle-group {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-secondary);
+        }
+        .toggle-group button {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-quaternary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .toggle-group button:hover { color: var(--text-secondary); }
+        .toggle-group button.active {
+            background: var(--accent-purple);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--bg-toast);
+            color: var(--text-toast);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            border: 1px solid var(--border-secondary);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 200;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+        .empty-state {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; min-height: 200px;
+            color: var(--text-dim); gap: 14px;
+        }
+        .empty-state-icon {
+            width: 40px; height: 40px; background: var(--bg-empty-icon);
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: var(--text-dim);
+        }
+        .empty-state-text { font-size: 13px; }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="sidebar-logo" onclick="goHome()">K</div>
+                <button class="sidebar-collapse">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="9" y1="3" x2="9" y2="21"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <button class="new-session-btn" onclick="createNewSession()">
+                <span id="newChatBtnText">新建会话</span>
+                <span class="shortcut">Ctrl K</span>
+            </button>
+
+            <div class="sidebar-menu">
+                <button class="sidebar-item" onclick="showLockPage('PPT')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h20v14H2z"></path>
+                        <path d="M12 17v4"></path>
+                        <path d="M8 21h8"></path>
+                    </svg>
+                    <span id="menuPPT">PPT</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('文档')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <span id="menuDoc">文档</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('深度研究')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span id="menuResearch">深度研究</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('网站')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <span id="menuSite">网站</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('表格')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="3" y1="15" x2="21" y2="15"></line>
+                        <line x1="12" y1="3" x2="12" y2="21"></line>
+                    </svg>
+                    <span id="menuTable">表格</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('Agent 集群')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span id="menuAgent">Agent 集群</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('Kimi Code')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    <span id="menuCode">Kimi Code</span>
+                </button>
+                <button class="sidebar-item" onclick="showLockPage('Kimi Claw')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span id="menuClaw">Kimi Claw</span>
+                    <span class="beta-tag">Beta</span>
+                    <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-menu">
+                <button class="sidebar-item active" onclick="goHome()" id="historyMenuBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span id="menuHistory">历史会话</span>
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <div class="user-bar" onclick="openSettings()">
+                    <div class="user-avatar" id="userAvatar">我</div>
+                    <span class="user-name" id="userName">我</span>
+                    <span class="user-upgrade" id="userUpgrade">升级</span>
+                    <svg class="user-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容 -->
+        <main class="main" id="mainArea">
+            <div class="header" id="mainHeader">
+                <button class="upgrade-btn-top" onclick="showSubscribePage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <span id="upgradeBtnText">升级套餐</span>
+                </button>
+                <div class="header-actions">
+                    <button class="header-btn" onclick="exportChat()" title="Export">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                            <polyline points="16 6 12 2 8 6"></polyline>
+                            <line x1="12" y1="2" x2="12" y2="15"></line>
+                        </svg>
+                    </button>
+                    <button class="header-btn" onclick="openSettings()" title="Settings">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 首页视图 -->
+            <div class="home-view" id="homeView">
+                <div class="home-logo">KIMI</div>
+                <div class="input-section">
+                    <div class="input-box">
+                        <textarea 
+                            class="input-field-home" 
+                            id="inputFieldHome" 
+                            placeholder="输入“/”可快捷使用技能" 
+                            rows="1"
+                            oninput="autoResize(this); updateSendBtnHome()"
+                            onkeydown="handleKeydownHome(event)"
+                        ></textarea>
+                        <div class="input-bottom-bar">
+                            <div class="input-left-tools">
+                                <input type="file" id="fileInputHome" style="display:none" onchange="handleFileSelectHome(this)">
+                                <button class="tool-btn-round" onclick="document.getElementById('fileInputHome').click()" title="Upload">+</button>
+                                <button class="agent-btn" onclick="showLockPage('Agent')">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                    <span id="agentBtnText">Agent</span>
+                                </button>
+                            </div>
+                            <div class="input-right-tools">
+                                <button class="model-select" onclick="showLockPage('Model')">
+                                    <span id="modelSelectText">K2.6 快速</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="send-btn-home" id="sendBtnHome" onclick="sendFromHome()">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聊天视图 -->
+            <div class="chat-view" id="chatView">
+                <div class="chat-area" id="chatArea">
+                    <div class="messages-container" id="messagesContainer"></div>
+                </div>
+                <div class="input-area-chat">
+                    <div class="input-wrapper-chat">
+                        <div class="file-tag-container-chat" id="fileTagContainerChat">
+                            <div class="file-tag-chat">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                <span class="file-tag-name-chat" id="fileTagNameChat">file.txt</span>
+                                <button class="file-tag-remove-chat" onclick="removeFileChat()">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <textarea 
+                            class="input-field-chat" 
+                            id="inputFieldChat" 
+                            placeholder="给 Kimi 发送消息..." 
+                            rows="1"
+                            oninput="autoResize(this); updateSendBtnChat()"
+                            onkeydown="handleKeydownChat(event)"
+                        ></textarea>
+                        <div class="input-toolbar-chat">
+                            <div class="input-tools-chat">
+                                <input type="file" id="fileInputChat" style="display:none" onchange="handleFileSelectChat(this)">
+                                <button class="tool-btn-chat" onclick="document.getElementById('fileInputChat').click()" title="Upload">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                    </svg>
+                                </button>
+                                <div style="position:relative;">
+                                    <button class="tool-btn-chat" id="searchBtnChat" onclick="toggleSearchDropdownChat()" title="Search">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        </svg>
+                                    </button>
+                                    <div class="search-dropdown-chat" id="searchDropdownChat">
+                                        <button class="search-option-chat" onclick="selectSearchEngineChat('baidu')">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            </svg>
+                                            百度
+                                        </button>
+                                        <button class="search-option-chat" onclick="selectSearchEngineChat('bing')">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            </svg>
+                                            Bing
+                                        </button>
+                                        <button class="search-option-chat" onclick="selectSearchEngineChat('google')">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            </svg>
+                                            Google
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="send-btn-chat" id="sendBtnChat" onclick="sendFromChat()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="footer-hint-chat" id="footerHintChat">内容由 AI 生成，请仔细甄别</div>
+                </div>
+            </div>
+
+            <!-- 锁定页面（订阅会员才能使用） -->
+            <div class="lock-page" id="lockPage">
+                <div class="lock-card">
+                    <div class="lock-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="lock-title" id="lockTitle">订阅会员才能使用</div>
+                    <div class="lock-desc" id="lockDesc">该功能仅限会员订阅用户使用，立即升级解锁全部功能。</div>
+                    <button class="lock-btn" onclick="showSubscribePage()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span id="lockBtnText">立即升级</span>
+                    </button>
+                    <br>
+                    <button class="lock-back" id="lockBackText" onclick="goHome()">← 返回首页</button>
+                </div>
+            </div>
+
+            <!-- 订阅页面 -->
+            <div class="lock-page" id="subscribePage">
+                <div class="lock-card">
+                    <div class="lock-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="lock-title" id="subTitle">订阅会员</div>
+                    <div class="lock-desc" id="subDesc">
+                        <span style="color:var(--text-subscribe);font-weight:500;">仅会员订阅用户才能订阅会员</span>
+                    </div>
+                    <button class="lock-btn" onclick="alert(t('subscribePage.btnAlert'))">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                        <span id="subBtnText">立即订阅</span>
+                    </button>
+                    <br>
+                    <button class="lock-back" id="subBackText" onclick="goHome()">← 返回首页</button>
+                </div>
+            </div>
+
+            <!-- 底部推广卡片 -->
+            <div class="promo-card" id="promoCard" onclick="showLockPage('Kimi K2.6')">
+                <div class="promo-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                </div>
+                <div class="promo-text">
+                    <div class="promo-title" id="promoTitle">Kimi K2.6，已就位！</div>
+                    <div class="promo-desc" id="promoDesc">Coding、Agent 集群、Kimi Claw 同步升级</div>
+                </div>
+                <div class="promo-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 设置面板 -->
+    <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings(event)">
+        <div class="settings-panel" onclick="event.stopPropagation()">
+            <div class="settings-header">
+                <h3 id="settingsTitle">设置</h3>
+                <button onclick="closeSettings()">×</button>
+            </div>
+            <div class="settings-body">
+                <div class="settings-item">
+                    <label id="themeLabel">主题</label>
+                    <div class="toggle-group">
+                        <button id="btnDark" onclick="setTheme('dark')">深色模式</button>
+                        <button id="btnLight" onclick="setTheme('light')">浅色模式</button>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <label id="langLabel">语言</label>
+                    <div class="toggle-group">
+                        <button id="btnZh" onclick="setLang('zh')">简体中文</button>
+                        <button id="btnEn" onclick="setLang('en')">English</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const i18n = {
+            zh: {
+                newChat: '新建会话',
+                history: '历史会话',
+                menuPPT: 'PPT',
+                menuDoc: '文档',
+                menuResearch: '深度研究',
+                menuSite: '网站',
+                menuTable: '表格',
+                menuAgent: 'Agent 集群',
+                menuCode: 'Kimi Code',
+                menuClaw: 'Kimi Claw',
+                upgradeBtn: '升级套餐',
+                agentBtn: 'Agent',
+                modelSelect: 'K2.6 快速',
+                placeholderHome: '输入"/"可快捷使用技能',
+                sendPlaceholder: '给 Kimi 发送消息...',
+                footerHint: '内容由 AI 生成，请仔细甄别',
+                emptyState: '发送消息开始对话',
+                avatarUser: '我',
+                alertMsg: '和 kimi 聊天的人太多啦，订阅会员可进入独立的优先队列～',
+                search: { baidu: '百度', bing: 'Bing', google: 'Google', selected: '已切换至 {engine} 搜索' },
+                upload: { selected: '已选择文件：{filename}' },
+                lockTitle: '订阅会员才能使用',
+                lockDesc: '该功能仅限会员订阅用户使用，立即升级解锁全部功能。',
+                lockBtn: '立即升级',
+                lockBack: '← 返回首页',
+                subscribePage: {
+                    title: '订阅会员',
+                    desc: '仅会员订阅用户才能订阅会员',
+                    btn: '立即订阅',
+                    btnAlert: '您需要先成为会员订阅用户才能订阅会员',
+                    back: '← 返回首页'
+                },
+                promoTitle: 'Kimi K2.6，已就位！',
+                promoDesc: 'Coding、Agent 集群、Kimi Claw 同步升级',
+                settings: {
+                    title: '设置',
+                    theme: '主题',
+                    dark: '深色模式',
+                    light: '浅色模式',
+                    language: '语言',
+                    zh: '简体中文',
+                    en: 'English'
+                },
+                export: {
+                    emptyAlert: '当前对话为空，无可导出内容',
+                    filename: 'Kimi对话',
+                    datePrefix: '日期',
+                    sessionPrefix: '会话',
+                    userPrefix: '用户',
+                    kimiPrefix: 'Kimi'
+                }
+            },
+            en: {
+                newChat: 'New Chat',
+                history: 'History',
+                menuPPT: 'PPT',
+                menuDoc: 'Docs',
+                menuResearch: 'Deep Research',
+                menuSite: 'Site',
+                menuTable: 'Table',
+                menuAgent: 'Agent Cluster',
+                menuCode: 'Kimi Code',
+                menuClaw: 'Kimi Claw',
+                upgradeBtn: 'Upgrade Plan',
+                agentBtn: 'Agent',
+                modelSelect: 'K2.6 Fast',
+                placeholderHome: 'Type "/" for quick skills',
+                sendPlaceholder: 'Send a message to Kimi...',
+                footerHint: 'Content generated by AI, please verify carefully',
+                emptyState: 'Send a message to start chatting',
+                avatarUser: 'Me',
+                alertMsg: 'Too many people are chatting with Kimi right now. Subscribed members cannot enter an independent priority queue either～',
+                search: { baidu: 'Baidu', bing: 'Bing', google: 'Google', selected: 'Switched to {engine} search' },
+                upload: { selected: 'Selected file: {filename}' },
+                lockTitle: 'Members Only',
+                lockDesc: 'This feature is only available to subscribed members. Upgrade now to unlock all features.',
+                lockBtn: 'Upgrade Now',
+                lockBack: '← Back to Home',
+                subscribePage: {
+                    title: 'Subscribe',
+                    desc: 'Only subscribed members can subscribe to membership',
+                    btn: 'Subscribe Now',
+                    btnAlert: 'You need to be a subscribed member first to subscribe to membership',
+                    back: '← Back to Home'
+                },
+                promoTitle: 'Kimi K2.6 is here!',
+                promoDesc: 'Coding, Agent Cluster, Kimi Claw all upgraded',
+                settings: {
+                    title: 'Settings',
+                    theme: 'Theme',
+                    dark: 'Dark',
+                    light: 'Light',
+                    language: 'Language',
+                    zh: '简体中文',
+                    en: 'English'
+                },
+                export: {
+                    emptyAlert: 'Current conversation is empty, nothing to export',
+                    filename: 'Kimi_Chat',
+                    datePrefix: 'Date',
+                    sessionPrefix: 'Session',
+                    userPrefix: 'User',
+                    kimiPrefix: 'Kimi'
+                }
+            }
+        };
+
+        const state = {
+            lang: 'zh',
+            theme: 'dark',
+            sessions: [],
+            currentSessionId: null,
+            nextSessionId: 1,
+            isProcessing: false,
+            selectedEngine: null,
+            attachedFile: null,
+            currentView: 'home'
+        };
+
+        const homeView = document.getElementById('homeView');
+        const chatView = document.getElementById('chatView');
+        const lockPage = document.getElementById('lockPage');
+        const subscribePage = document.getElementById('subscribePage');
+        const promoCard = document.getElementById('promoCard');
+        const mainHeader = document.getElementById('mainHeader');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const chatArea = document.getElementById('chatArea');
+        const inputFieldHome = document.getElementById('inputFieldHome');
+        const inputFieldChat = document.getElementById('inputFieldChat');
+        const sendBtnHome = document.getElementById('sendBtnHome');
+        const sendBtnChat = document.getElementById('sendBtnChat');
+        const historyMenuBtn = document.getElementById('historyMenuBtn');
+        const toast = document.getElementById('toast');
+        const settingsOverlay = document.getElementById('settingsOverlay');
+        const searchDropdownChat = document.getElementById('searchDropdownChat');
+        const searchBtnChat = document.getElementById('searchBtnChat');
+        const fileTagContainerChat = document.getElementById('fileTagContainerChat');
+        const fileTagNameChat = document.getElementById('fileTagNameChat');
+
+        function t(key) {
+            const keys = key.split('.');
+            let val = i18n[state.lang];
+            for (const k of keys) {
+                if (val && typeof val === 'object' && k in val) {
+                    val = val[k];
+                } else {
+                    return key;
+                }
+            }
+            return val;
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function createSession(title) {
+            const id = 'session_' + (state.nextSessionId++);
+            const session = { id, title, messages: [] };
+            state.sessions.push(session);
+            return session;
+        }
+
+        function getCurrentSession() {
+            return state.sessions.find(s => s.id === state.currentSessionId);
+        }
+
+        function applyTheme() {
+            if (state.theme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                document.body.removeAttribute('data-theme');
+            }
+            document.getElementById('btnDark').classList.toggle('active', state.theme === 'dark');
+            document.getElementById('btnLight').classList.toggle('active', state.theme === 'light');
+        }
+
+        function applyLangUI() {
+            document.getElementById('btnZh').classList.toggle('active', state.lang === 'zh');
+            document.getElementById('btnEn').classList.toggle('active', state.lang === 'en');
+        }
+
+        function applyLanguage() {
+            document.getElementById('newChatBtnText').textContent = t('newChat');
+            document.getElementById('menuPPT').textContent = t('menuPPT');
+            document.getElementById('menuDoc').textContent = t('menuDoc');
+            document.getElementById('menuResearch').textContent = t('menuResearch');
+            document.getElementById('menuSite').textContent = t('menuSite');
+            document.getElementById('menuTable').textContent = t('menuTable');
+            document.getElementById('menuAgent').textContent = t('menuAgent');
+            document.getElementById('menuCode').textContent = t('menuCode');
+            document.getElementById('menuClaw').textContent = t('menuClaw');
+            document.getElementById('menuHistory').textContent = t('history');
+            document.getElementById('upgradeBtnText').textContent = t('upgradeBtn');
+            document.getElementById('agentBtnText').textContent = t('agentBtn');
+            document.getElementById('modelSelectText').textContent = t('modelSelect');
+            inputFieldHome.placeholder = t('placeholderHome');
+            inputFieldChat.placeholder = t('sendPlaceholder');
+            document.getElementById('footerHintChat').textContent = t('footerHint');
+            document.getElementById('lockTitle').textContent = t('lockTitle');
+            document.getElementById('lockDesc').textContent = t('lockDesc');
+            document.getElementById('lockBtnText').textContent = t('lockBtn');
+            document.getElementById('lockBackText').textContent = t('lockBack');
+            document.getElementById('subTitle').textContent = t('subscribePage.title');
+            document.getElementById('subDesc').innerHTML = `<span style="color:var(--text-subscribe);font-weight:500;">${t('subscribePage.desc')}</span>`;
+            document.getElementById('subBtnText').textContent = t('subscribePage.btn');
+            document.getElementById('subBackText').textContent = t('subscribePage.back');
+            document.getElementById('promoTitle').textContent = t('promoTitle');
+            document.getElementById('promoDesc').textContent = t('promoDesc');
+            document.getElementById('settingsTitle').textContent = t('settings.title');
+            document.getElementById('themeLabel').textContent = t('settings.theme');
+            document.getElementById('btnDark').textContent = t('settings.dark');
+            document.getElementById('btnLight').textContent = t('settings.light');
+            document.getElementById('langLabel').textContent = t('settings.language');
+            document.getElementById('btnZh').textContent = t('settings.zh');
+            document.getElementById('btnEn').textContent = t('settings.en');
+            document.getElementById('userName').textContent = t('avatarUser');
+            document.getElementById('userUpgrade').textContent = t('lockBtn');
+            document.getElementById('userAvatar').textContent = t('avatarUser');
+        }
+
+        function switchView(view) {
+            state.currentView = view;
+            homeView.classList.toggle('hidden', view !== 'home');
+            chatView.classList.toggle('active', view === 'chat');
+            lockPage.classList.toggle('active', view === 'lock');
+            subscribePage.classList.toggle('active', view === 'subscribe');
+            promoCard.style.display = view === 'chat' || view === 'home' ? 'flex' : 'none';
+            mainHeader.style.display = view === 'lock' || view === 'subscribe' ? 'none' : 'flex';
+            
+            if (view === 'home') {
+                historyMenuBtn.classList.add('active');
+            } else {
+                historyMenuBtn.classList.remove('active');
+            }
+        }
+
+        function goHome() {
+            state.isProcessing = false;
+            switchView('home');
+            inputFieldHome.focus();
+        }
+
+        function showLockPage(featureName) {
+            document.getElementById('lockTitle').textContent = t('lockTitle');
+            switchView('lock');
+        }
+
+        function showSubscribePage() {
+            switchView('subscribe');
+        }
+
+        function createNewSession() {
+            const newSession = createSession(t('newChat'));
+            state.currentSessionId = newSession.id;
+            state.attachedFile = null;
+            updateFileTagChat();
+            renderMessages();
+            switchView('chat');
+            inputFieldChat.focus();
+            scrollToBottom();
+        }
+
+        function renderMessages() {
+            const session = getCurrentSession();
+            messagesContainer.innerHTML = '';
+
+            if (!session || session.messages.length === 0) {
+                messagesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="empty-state-text">${t('emptyState')}</div>
+                    </div>
+                `;
+                return;
+            }
+
+            session.messages.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                if (msg.role === 'user') {
+                    msgDiv.className = 'message user';
+                    let contentHtml = escapeHtml(msg.content);
+                    if (msg.fileName) {
+                        contentHtml += `<div style="margin-top:6px;font-size:12px;color:var(--text-tertiary);display:flex;align-items:center;gap:4px;">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            ${escapeHtml(msg.fileName)}
+                        </div>`;
+                    }
+                    msgDiv.innerHTML = `
+                        <div class="avatar user">${t('avatarUser')}</div>
+                        <div class="message-content">${contentHtml}</div>
+                    `;
+                } else {
+                    msgDiv.className = 'message';
+                    if (msg.content === '__TYPING__') {
+                        msgDiv.innerHTML = `
+                            <div class="avatar kimi"></div>
+                            <div class="message-content">
+                                <div class="typing-indicator">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        `;
+                    } else if (msg.isAlert) {
+                        msgDiv.innerHTML = `
+                            <div class="avatar kimi"></div>
+                            <div class="message-content">
+                                <div class="alert-box">${escapeHtml(msg.content)}</div>
+                            </div>
+                        `;
+                    } else {
+                        msgDiv.innerHTML = `
+                            <div class="avatar kimi"></div>
+                            <div class="message-content">${escapeHtml(msg.content)}</div>
+                        `;
+                    }
+                }
+                messagesContainer.appendChild(msgDiv);
+            });
+        }
+
+        function sendFromHome() {
+            const text = inputFieldHome.value.trim();
+            if (!text) return;
+            const newSession = createSession(t('newChat'));
+            state.currentSessionId = newSession.id;
+            switchView('chat');
+            inputFieldChat.value = text;
+            inputFieldHome.value = '';
+            autoResize(inputFieldChat);
+            sendFromChat();
+        }
+
+        function sendFromChat() {
+            const text = inputFieldChat.value.trim();
+            if (!text || state.isProcessing) return;
+
+            const session = getCurrentSession();
+            if (!session) {
+                const newSession = createSession(t('newChat'));
+                state.currentSessionId = newSession.id;
+            }
+            const targetSession = getCurrentSession();
+
+            const msg = { role: 'user', content: text };
+            if (state.attachedFile) {
+                msg.fileName = state.attachedFile;
+            }
+            targetSession.messages.push(msg);
+            
+            const userMsgCount = targetSession.messages.filter(m => m.role === 'user').length;
+            if (userMsgCount === 1) {
+                targetSession.title = text.slice(0, 20) + (text.length > 20 ? '...' : '');
+            }
+
+            inputFieldChat.value = '';
+            inputFieldChat.style.height = 'auto';
+            state.isProcessing = true;
+            state.attachedFile = null;
+            updateFileTagChat();
+            updateSendBtnChat();
+
+            renderMessages();
+            scrollToBottom();
+
+            const typingIndex = targetSession.messages.push({ role: 'kimi', content: '__TYPING__' }) - 1;
+            renderMessages();
+            scrollToBottom();
+
+            setTimeout(() => {
+                const target = targetSession.messages[typingIndex];
+                if (target && target.content === '__TYPING__') {
+                    target.content = t('alertMsg');
+                    target.isAlert = true;
+                }
+                state.isProcessing = false;
+                updateSendBtnChat();
+                renderMessages();
+                scrollToBottom();
+            }, 1500);
+        }
+
+        // 搜索下拉
+        function toggleSearchDropdownChat() {
+            searchDropdownChat.classList.toggle('active');
+        }
+        function selectSearchEngineChat(engine) {
+            state.selectedEngine = engine;
+            searchDropdownChat.classList.remove('active');
+            searchBtnChat.classList.add('active-search');
+            const engineName = t('search.' + engine);
+            showToast(t('search.selected').replace('{engine}', engineName));
+        }
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.input-tools-chat')) {
+                searchDropdownChat.classList.remove('active');
+            }
+        });
+
+        // 文件上传
+        function handleFileSelectHome(input) {
+            const file = input.files[0];
+            if (!file) return;
+            state.attachedFile = file.name;
+            showToast(t('upload.selected').replace('{filename}', file.name));
+            input.value = '';
+        }
+        function handleFileSelectChat(input) {
+            const file = input.files[0];
+            if (!file) return;
+            state.attachedFile = file.name;
+            updateFileTagChat();
+            showToast(t('upload.selected').replace('{filename}', file.name));
+            input.value = '';
+        }
+        function updateFileTagChat() {
+            if (state.attachedFile) {
+                fileTagNameChat.textContent = state.attachedFile;
+                fileTagContainerChat.classList.add('active');
+            } else {
+                fileTagContainerChat.classList.remove('active');
+            }
+        }
+        function removeFileChat() {
+            state.attachedFile = null;
+            updateFileTagChat();
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 160) + 'px';
+        }
+
+        function updateSendBtnHome() {
+            const hasText = inputFieldHome.value.trim().length > 0;
+            sendBtnHome.classList.toggle('active', hasText);
+        }
+        function updateSendBtnChat() {
+            const hasText = inputFieldChat.value.trim().length > 0;
+            sendBtnChat.classList.toggle('active', hasText && !state.isProcessing);
+        }
+
+        function handleKeydownHome(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendFromHome();
+            }
+        }
+        function handleKeydownChat(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendFromChat();
+            }
+        }
+
+        function scrollToBottom() {
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function openSettings() {
+            settingsOverlay.classList.add('active');
+        }
+        function closeSettings(e) {
+            if (e && e.target !== e.currentTarget) return;
+            settingsOverlay.classList.remove('active');
+        }
+        function setTheme(theme) {
+            state.theme = theme;
+            applyTheme();
+        }
+        function setLang(lang) {
+            state.lang = lang;
+            applyLanguage();
+            applyLangUI();
+        }
+
+        function exportChat() {
+            const session = getCurrentSession();
+            if (!session || session.messages.length === 0) {
+                alert(t('export.emptyAlert'));
+                return;
+            }
+            const lines = [];
+            const now = new Date();
+            const locale = state.lang === 'zh' ? 'zh-CN' : 'en-US';
+            lines.push(`Kimi Chat Export`);
+            lines.push(`${t('export.datePrefix')}: ${now.toLocaleString(locale)}`);
+            lines.push(`${t('export.sessionPrefix')}: ${session.title}`);
+            lines.push(`-`.repeat(40));
+            lines.push('');
+            session.messages.forEach(msg => {
+                if (msg.content === '__TYPING__') return;
+                if (msg.role === 'user') {
+                    lines.push(`[${t('export.userPrefix')}]`);
+                } else {
+                    lines.push(`[${t('export.kimiPrefix')}]`);
+                }
+                lines.push(msg.content);
+                if (msg.fileName) {
+                    lines.push(`[File] ${msg.fileName}`);
+                }
+                lines.push('');
+            });
+            const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const safeTitle = session.title.replace(/[\\/:*?"<>|]/g, '_').substring(0, 50);
+            a.download = `${t('export.filename')}_${safeTitle}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function init() {
+            applyTheme();
+            applyLangUI();
+            applyLanguage();
+            switchView('home');
+            inputFieldHome.focus();
+        }
+
+        init();
+    </script>
+</body>
+</html>
